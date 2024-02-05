@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_api_sqflite/models/all_movie_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import '../common/api_services.dart';
-import '../models/favorite_movie_model.dart';
 
 class HomePageController extends GetxController {
   RxBool isLoading = true.obs;

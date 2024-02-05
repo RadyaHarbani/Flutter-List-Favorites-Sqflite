@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_sqflite/common/api_services.dart';
-import 'package:flutter_api_sqflite/views/homepage_view%20copy.dart';
+import 'package:flutter_api_sqflite/routes/app_pages.dart';
+import 'package:flutter_api_sqflite/views/favoritepage_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class HomePageView extends GetView<HomePageController> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(FavoriteView());
+              Get.toNamed(Routes.FAVORITEPAGE);
             },
             icon: Icon(Icons.favorite),
           ),

@@ -13,7 +13,7 @@ class DatabaseHelper {
   final String columnOverview = 'overview';
   final String columnPosterPath = 'posterPath';
 
-  RxList<FavoriteMovie> favorites = <FavoriteMovie>[].obs;
+  RxList<FavoriteMovie> favoritesMovie = <FavoriteMovie>[].obs;
 
   Future<Database> initializeDatabase() async {
     String path = join(await getDatabasesPath(), databaseName);
@@ -37,13 +37,12 @@ class DatabaseHelper {
   Future<List<FavoriteMovie>> getFavorites() async {
     final db = await initializeDatabase();
     List<Map<String, dynamic>> maps = await db.query(favoriteTable);
-
     if (maps.length > 0) {
       for (int i = 0; i < maps.length; i++) {
-        favorites.add(FavoriteMovie.fromMap(maps[i]));
+        favoritesMovie.add(FavoriteMovie.fromMap(maps[i]));
       }
     }
-    return favorites;
+    return favoritesMovie;
   }
 
   Future<int> insertFavorite(FavoriteMovie favoriteMovie) async {
@@ -57,10 +56,7 @@ class DatabaseHelper {
     final db = await initializeDatabase();
     int result = await db.delete(favoriteTable,
         where: '$columnId = ?', whereArgs: [favoriteMovie.id]);
-
-    // Remove the deleted movie from the 'favorites' list
-    favorites.remove(favoriteMovie);
-
+    favoritesMovie.remove(favoriteMovie);
     return result;
   }
 }
