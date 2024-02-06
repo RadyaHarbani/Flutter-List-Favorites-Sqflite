@@ -1,6 +1,6 @@
 import 'package:flutter_api_sqflite/database/database_instance.dart';
+import 'package:flutter_api_sqflite/models/favorite_movie_model.dart';
 import 'package:get/get.dart';
-import '../models/favorite_movie_model.dart';
 
 class FavoritePageController extends GetxController {
   RxList<FavoriteMovie> favorites = <FavoriteMovie>[].obs;

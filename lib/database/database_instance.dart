@@ -12,6 +12,9 @@ class DatabaseHelper {
   final String columnTitle = 'title';
   final String columnOverview = 'overview';
   final String columnPosterPath = 'posterPath';
+  final String columnBackdropPath = 'backdropPath';
+  final String columnReleaseDate = 'releaseDate';
+  final String columnVoteAverage = 'voteAverage';
 
   RxList<FavoriteMovie> favoritesMovie = <FavoriteMovie>[].obs;
 
@@ -28,7 +31,10 @@ class DatabaseHelper {
         $columnId INTEGER PRIMARY KEY,
         $columnTitle TEXT,
         $columnOverview TEXT,
-        $columnPosterPath TEXT
+        $columnPosterPath TEXT,
+        $columnBackdropPath TEXT,
+        $columnReleaseDate TEXT,
+        $columnVoteAverage REAL
       )
     ''');
     newVersion = databaseVersion;
@@ -47,8 +53,10 @@ class DatabaseHelper {
 
   Future<int> insertFavorite(FavoriteMovie favoriteMovie) async {
     final db = await initializeDatabase();
-    var result = await db.insert(favoriteTable, favoriteMovie.toMap(),
+    int result = await db.insert(favoriteTable, favoriteMovie.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+
+    favoritesMovie.add(favoriteMovie);
     return result;
   }
 
